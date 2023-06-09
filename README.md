@@ -1,96 +1,52 @@
-# Python Template 🐍
-A template repo holding our common setup for a python project.
+<div align="center">
+  <p>
+    <a align="center" href="" target="_blank">
+      <img
+        width="850"
+        src="https://media.roboflow.com/open-source/autodistill/autodistill-banner.png"
+      >
+    </a>
+  </p>
+</div>
+
+# Autodistill Grounding DINO Module
+
+This repository contains the code supporting the Grounding DINO base model for use with [Autodistill](https://github.com/autodistill/autodistill).
+
+[Grounding DINO](https://github.com/IDEA-Research/GroundingDINO) is a zero-shot object detection model developed by IDEA Research. You can distill knowledge from Grounding DINO into a smaller model using Autodistill.
+
+Read the [Grounding DINO Autodistill documentation](https://autodistill.github.io/autodistill/base_models/groundedsam/).
 
 ## Installation
 
-You can install the package using pip
+To use the Grounded SAM base model, you will need to install the following dependency:
 
 ```bash
-pip install -e .
+pip3 install autodistill-grounding-dino
 ```
 
-or for development
+## Quickstart
 
-```bash
-pip install -e ".[dev]"
+```python
+from autodistill_grounding_dino import GroundingDINO
+from autodistill_yolov8 import YOLOv8
+
+
+# define an ontology to map class names to our GroundingDINO prompt
+# the ontology dictionary has the format {caption: class}
+# where caption is the prompt sent to the base model, and class is the label that will
+# be saved for that caption in the generated annotations
+# then, load the model
+base_model = GroundedSAM(ontology=CaptionOntology({"shipping container": "container"}))
+
+# label all images in a folder called `context_images`
+base_model.label("./context_images", extension=".jpeg")
 ```
 
-## Structure
+## License
 
-The project has the following structure
+The code in this repository is licensed under an [Apache 2.0 license](LICENSE).
 
-```
-├── .github
-│   └── workflows
-│       └── test.yml # holds our github action config 
-├── .gitignore
-├── Makefile
-├── README.md
-├── setup.py
-├── src
-│   ├── __init__.py 
-│   ├── hello.py 
-└── test 
-    └── test_hello.py
-```
+## 🏆 Contributing
 
-### Code Quality 🧹
-
-We provide two handy commands inside the `Makefile`, namely:
-
-- `make style` to format the code
-- `make check_code_quality` to check code quality (PEP8 basically)
-
-So far, **there is no types checking with mypy**. See [issue](https://github.com/roboflow-ai/template-python/issues/4). 
-
-### Tests 🧪
-
-[`pytests`](https://docs.pytest.org/en/7.1.x/) is used to run our tests.
-
-### Publish on PyPi 🚀
-
-**Important**: Before publishing, edit `__version__` in [src/__init__](/src/__init__.py) to match the wanted new version.
-
-We use [`twine`](https://twine.readthedocs.io/en/stable/) to make our life easier. You can publish by using
-
-```
-export PYPI_USERNAME="you_username"
-export PYPI_PASSWORD="your_password"
-export PYPI_TEST_PASSWORD="your_password_for_test_pypi"
-make publish -e PYPI_USERNAME=$PYPI_USERNAME -e PYPI_PASSWORD=$PYPI_PASSWORD -e PYPI_TEST_PASSWORD=$PYPI_TEST_PASSWORD
-```
-
-You can also use token for auth, see [pypi doc](https://pypi.org/help/#apitoken). In that case,
-
-```
-export PYPI_USERNAME="__token__"
-export PYPI_PASSWORD="your_token"
-export PYPI_TEST_PASSWORD="your_token_for_test_pypi"
-make publish -e PYPI_USERNAME=$PYPI_USERNAME -e PYPI_PASSWORD=$PYPI_PASSWORD -e PYPI_TEST_PASSWORD=$PYPI_TEST_PASSWORD
-```
-
-**Note**: We will try to push to [test pypi](https://test.pypi.org/) before pushing to pypi, to assert everything will work
-
-### CI/CD 🤖
-
-We use [GitHub actions](https://github.com/features/actions) to automatically run tests and check code quality when a new PR is done on `main`.
-
-On any pull request, we will check the code quality and tests.
-
-When a new release is created, we will try to push the new code to PyPi. We use [`twine`](https://twine.readthedocs.io/en/stable/) to make our life easier. 
-
-The **correct steps** to create a new realease are the following:
-- edit `__version__` in [src/__init__](/src/__init__.py) to match the wanted new version.
-- create a new [`tag`](https://git-scm.com/docs/git-tag) with the release name, e.g. `git tag v0.0.1 && git push origin v0.0.1` or from the GitHub UI.
-- create a new release from GitHub UI
-
-The CI will run when you create the new release.
-
-# Q&A
-
-## Why no cookiecutter?
-This is a template repo, it's meant to be used inside GitHub upon repo creation.
-
-## Why reinvent the wheel?
-
-There are several very good templates on GitHub, I prefer to use code we wrote instead of blinding taking the most starred template and having features we don't need. From experience, it's better to keep it simple and general enough for our specific use cases.
+We love your input! Please see the core Autodistill [contributing guide](https://github.com/autodistill/autodistill/blob/main/CONTRIBUTING.md) to get started. Thank you 🙏 to all our contributors!
