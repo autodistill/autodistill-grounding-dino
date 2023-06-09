@@ -15,7 +15,7 @@ This repository contains the code supporting the Grounding DINO base model for u
 
 [Grounding DINO](https://github.com/IDEA-Research/GroundingDINO) is a zero-shot object detection model developed by IDEA Research. You can distill knowledge from Grounding DINO into a smaller model using Autodistill.
 
-Read the [Grounding DINO Autodistill documentation](https://autodistill.github.io/autodistill/base_models/groundedsam/).
+Read the [Grounding DINO Autodistill documentation](https://autodistill.github.io/autodistill/base_models/grounding-dino/).
 
 ## Installation
 
