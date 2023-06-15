@@ -11,12 +11,9 @@ torch.use_deterministic_algorithms(False)
 
 import supervision as sv
 from groundingdino.util.inference import Model
-from segment_anything import SamPredictor
-
-import numpy as np
 from autodistill.detection import CaptionOntology, DetectionBaseModel
 
-from autodistill_grounded_sam.helpers import (
+from autodistill_grounding_dino.helpers import (
     combine_detections,
     load_grounding_dino,
 )
