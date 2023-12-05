@@ -2,10 +2,9 @@ import os
 import urllib.request
 
 import numpy as np
+import supervision as sv
 import torch
 from groundingdino.util.inference import Model
-
-import supervision as sv
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -104,4 +103,3 @@ def load_grounding_dino():
         )
 
         return grounding_dino_model
-
