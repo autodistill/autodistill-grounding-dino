@@ -17,6 +17,9 @@ This repository contains the code supporting the Grounding DINO base model for u
 
 Read the [Grounding DINO Autodistill documentation](https://autodistill.github.io/autodistill/base_models/grounding-dino/).
 
+> [!TIP]
+> You can use Autodistill Grounding DINO on your own hardware, or use the [Roboflow hosted version of Autodistill](https://blog.roboflow.com/launch-auto-label/) to label images in the cloud.
+
 ## Installation
 
 To use the Grounding DINO base model, you will need to install the following dependency:
