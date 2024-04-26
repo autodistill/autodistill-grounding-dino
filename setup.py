@@ -24,7 +24,7 @@ setuptools.setup(
         "autodistill",
         "numpy>=1.20.0",
         "opencv-python>=4.6.0",
-        "rf_groundingdino",
+        "rf_groundingdino==0.1.2",
         "rf_segment_anything",
         "supervision"
     ],
