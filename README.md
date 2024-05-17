@@ -25,13 +25,14 @@ Read the [Grounding DINO Autodistill documentation](https://autodistill.github.i
 To use the Grounding DINO base model, you will need to install the following dependency:
 
 ```bash
-pip3 install autodistill-grounding-dino
+pip3 install autodistill autodistill-yolov8 autodistill-grounding-dino
 ```
 
 ## Quickstart
 
 ```python
 from autodistill_grounding_dino import GroundingDINO
+from autodistill.detection import CaptionOntology
 from autodistill_yolov8 import YOLOv8
 
 
