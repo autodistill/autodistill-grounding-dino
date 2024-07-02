@@ -8,6 +8,17 @@ from groundingdino.util.inference import Model
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+MODELS = {
+    "tiny": {
+        "config": "GroundingDINO_SwinT_OGC.cfg.py",
+        "checkpoint": "groundingdino_swint_ogc.pth",
+    },
+    "base": {
+        "config": "GroundingDINO_SwinB.cfg.py",
+        "checkpoint": "groundingdino_swinb_cogcoor.pth",
+    },
+}
+
 if not torch.cuda.is_available():
     print("WARNING: CUDA not available. GroundingDINO will run very slowly.")
 
@@ -63,17 +74,15 @@ def combine_detections(detections_list, overwrite_class_ids):
     )
 
 
-def load_grounding_dino():
+def load_grounding_dino(model: str = "tiny"):
+    config = MODELS[model]["config"]
+    checkpoint = MODELS[model]["checkpoint"]
     AUTODISTILL_CACHE_DIR = os.path.expanduser("~/.cache/autodistill")
 
     GROUDNING_DINO_CACHE_DIR = os.path.join(AUTODISTILL_CACHE_DIR, "groundingdino")
 
-    GROUNDING_DINO_CONFIG_PATH = os.path.join(
-        GROUDNING_DINO_CACHE_DIR, "GroundingDINO_SwinT_OGC.py"
-    )
-    GROUNDING_DINO_CHECKPOINT_PATH = os.path.join(
-        GROUDNING_DINO_CACHE_DIR, "groundingdino_swint_ogc.pth"
-    )
+    GROUNDING_DINO_CONFIG_PATH = os.path.join(GROUDNING_DINO_CACHE_DIR, config)
+    GROUNDING_DINO_CHECKPOINT_PATH = os.path.join(GROUDNING_DINO_CACHE_DIR, checkpoint)
 
     try:
         print("trying to load grounding dino directly")
@@ -89,11 +98,13 @@ def load_grounding_dino():
             os.makedirs(GROUDNING_DINO_CACHE_DIR)
 
         if not os.path.exists(GROUNDING_DINO_CHECKPOINT_PATH):
-            url = "https://github.com/IDEA-Research/GroundingDINO/releases/download/v0.1.0-alpha/groundingdino_swint_ogc.pth"
+            url = f"https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/{checkpoint}"
             urllib.request.urlretrieve(url, GROUNDING_DINO_CHECKPOINT_PATH)
 
         if not os.path.exists(GROUNDING_DINO_CONFIG_PATH):
-            url = "https://raw.githubusercontent.com/roboflow/GroundingDINO/main/groundingdino/config/GroundingDINO_SwinT_OGC.py"
+            url = (
+                f"https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/{config}"
+            )
             urllib.request.urlretrieve(url, GROUNDING_DINO_CONFIG_PATH)
 
         grounding_dino_model = Model(
