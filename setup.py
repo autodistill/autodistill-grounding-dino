@@ -20,6 +20,8 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/autodistill/autodistill-grounding-dino",
     install_requires=[
+        "roboflow",
+        "scikit-learn",
         "torch",
         "autodistill",
         "numpy>=1.20.0",
